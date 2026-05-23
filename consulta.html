@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+  ============================================================
+  MÓDULO: Consulta de Clientes y Ventas
+  EVIDENCIA: GA7-220501096-AA3-EV01
+  DESCRIPCIÓN: Listado de todos los registros guardados.
+               Permite buscar por nombre o documento,
+               y eliminar registros individuales.
+  ============================================================
+-->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultar Registros | SalesTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="navbar">
+    <div class="navbar__logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">SalesTrack</span>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="registro.html" class="nav-link">Registrar</a>
+      <a href="consulta.html" class="nav-link active">Consultar</a>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <div class="consulta-container">
+
+      <!-- Encabezado de sección -->
+      <div class="form-header">
+        <span class="form-header__badge">Módulo de Consulta</span>
+        <h1 class="form-header__title">Registros guardados</h1>
+        <p class="form-header__desc">Busca, visualiza y gestiona los clientes y ventas registradas.</p>
+      </div>
+
+      <!-- BARRA DE BÚSQUEDA -->
+      <div class="search-bar">
+        <input
+          type="text"
+          id="buscador"
+          class="form-control search-input"
+          placeholder="Buscar por nombre, apellido o documento..."
+        />
+        <button id="btnBuscar" class="btn btn--primary">Buscar</button>
+        <button id="btnLimpiarBusqueda" class="btn btn--outline">Limpiar</button>
+      </div>
+
+      <!-- ESTADÍSTICAS RÁPIDAS -->
+      <div class="stats-row" id="statsRow">
+        <div class="stat-chip">
+          <span class="stat-chip__num" id="totalClientes">0</span>
+          <span class="stat-chip__label">Clientes</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-chip__num" id="totalVentas">0</span>
+          <span class="stat-chip__label">Ventas</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-chip__num" id="totalIngresos">$0</span>
+          <span class="stat-chip__label">Total ingresos</span>
+        </div>
+      </div>
+
+      <!-- TABLA DE REGISTROS -->
+      <div class="table-wrapper">
+        <table class="data-table" id="tablaRegistros">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Documento</th>
+              <th>Cliente</th>
+              <th>Contacto</th>
+              <th>Producto</th>
+              <th>Cant.</th>
+              <th>Total</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyRegistros">
+            <!-- Las filas se insertan dinámicamente con JS -->
+          </tbody>
+        </table>
+
+        <!-- Estado vacío -->
+        <div id="emptyState" class="empty-state hidden">
+          <span class="empty-state__icon">◌</span>
+          <p class="empty-state__text">No se encontraron registros</p>
+          <a href="registro.html" class="btn btn--primary">Crear primer registro</a>
+        </div>
+      </div>
+
+      <!-- BOTÓN EXPORTAR -->
+      <div class="consulta-actions">
+        <button id="btnExportar" class="btn btn--outline">Exportar CSV</button>
+        <button id="btnBorrarTodo" class="btn btn--danger">Borrar todos</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL DETALLE CLIENTE -->
+  <div id="modalDetalle" class="modal hidden">
+    <div class="modal__overlay" id="overlayDetalle"></div>
+    <div class="modal__box modal__box--wide">
+      <h2 class="modal__title">Detalle del registro</h2>
+      <div id="detalleContenido" class="detalle-grid"></div>
+      <div class="modal__actions">
+        <button id="cerrarDetalle" class="btn btn--outline">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMACIÓN ELIMINAR -->
+  <div id="modalEliminar" class="modal hidden">
+    <div class="modal__overlay" id="overlayEliminar"></div>
+    <div class="modal__box">
+      <div class="modal__icon modal__icon--warn">!</div>
+      <h2 class="modal__title">¿Eliminar registro?</h2>
+      <p class="modal__desc">Esta acción no se puede deshacer.</p>
+      <div class="modal__actions">
+        <button id="cancelarEliminar" class="btn btn--outline">Cancelar</button>
+        <button id="confirmarEliminar" class="btn btn--danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <p>Evidencia AA3_EV01</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/consulta.js"></script>
+    <script src="apiUsuarios.js"></script>
+</body>
+</html>

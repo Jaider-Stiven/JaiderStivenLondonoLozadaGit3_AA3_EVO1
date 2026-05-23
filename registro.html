@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+  ============================================================
+  MÓDULO: Registro de Clientes y Ventas
+  EVIDENCIA: GA7-220501096-AA3-EV01
+  DESCRIPCIÓN: Formulario de ingreso de datos de clientes y
+               su venta asociada. Valida campos y guarda en
+               localStorage para persistencia local.
+  ============================================================
+-->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar Cliente | SalesTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="navbar">
+    <div class="navbar__logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">SalesTrack</span>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="registro.html" class="nav-link active">Registrar</a>
+      <a href="consulta.html" class="nav-link">Consultar</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="page-content">
+    <div class="form-container">
+
+      <!-- Encabezado del formulario -->
+      <div class="form-header">
+        <span class="form-header__badge">Módulo de Registro</span>
+        <h1 class="form-header__title">Nuevo Cliente</h1>
+        <p class="form-header__desc">Complete los campos para registrar un cliente y su venta asociada.</p>
+      </div>
+
+      <!-- ============================
+           FORMULARIO PRINCIPAL
+      ============================= -->
+      <form id="formRegistro" class="registro-form" novalidate>
+
+        <!-- SECCIÓN 1: DATOS PERSONALES -->
+        <fieldset class="form-section">
+          <legend class="form-section__legend">
+            <span class="legend-num">01</span> Datos Personales
+          </legend>
+
+          <div class="form-row">
+            <!-- Tipo de documento -->
+            <div class="form-group">
+              <label for="tipoDoc" class="form-label">Tipo de documento <span class="required">*</span></label>
+              <select id="tipoDoc" name="tipoDoc" class="form-control" required>
+                <option value="">-- Seleccione --</option>
+                <option value="CC">Cédula de Ciudadanía (CC)</option>
+                <option value="CE">Cédula de Extranjería (CE)</option>
+                <option value="TI">Tarjeta de Identidad (TI)</option>
+                <option value="NIT">NIT</option>
+                <option value="PP">Pasaporte (PP)</option>
+              </select>
+              <span class="form-error" id="error-tipoDoc"></span>
+            </div>
+
+            <!-- Número de documento -->
+            <div class="form-group">
+              <label for="numDoc" class="form-label">Número de documento <span class="required">*</span></label>
+              <input
+                type="text"
+                id="numDoc"
+                name="numDoc"
+                class="form-control"
+                placeholder="Ej: 1098765432"
+                maxlength="15"
+                required
+              />
+              <span class="form-error" id="error-numDoc"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Nombres -->
+            <div class="form-group">
+              <label for="nombres" class="form-label">Nombres <span class="required">*</span></label>
+              <input
+                type="text"
+                id="nombres"
+                name="nombres"
+                class="form-control"
+                placeholder="Ej: Carlos Andrés"
+                maxlength="60"
+                required
+              />
+              <span class="form-error" id="error-nombres"></span>
+            </div>
+
+            <!-- Apellidos -->
+            <div class="form-group">
+              <label for="apellidos" class="form-label">Apellidos <span class="required">*</span></label>
+              <input
+                type="text"
+                id="apellidos"
+                name="apellidos"
+                class="form-control"
+                placeholder="Ej: Ramírez Torres"
+                maxlength="60"
+                required
+              />
+              <span class="form-error" id="error-apellidos"></span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Correo electrónico -->
+            <div class="form-group">
+              <label for="email" class="form-label">Correo electrónico <span class="required">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="correo@ejemplo.com"
+                required
+              />
+              <span class="form-error" id="error-email"></span>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="form-group">
+              <label for="telefono" class="form-label">Teléfono <span class="required">*</span></label>
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                class="form-control"
+                placeholder="Ej: 3001234567"
+                maxlength="10"
+                required
+              />
+              <span class="form-error" id="error-telefono"></span>
+            </div>
+          </div>
+
+          <!-- Dirección -->
+          <div class="form-row">
+            <div class="form-group form-group--full">
+              <label for="direccion" class="form-label">Dirección</label>
+              <input
+                type="text"
+                id="direccion"
+                name="direccion"
+                class="form-control"
+                placeholder="Ej: Calle 10 # 5-32, Barrio Centro"
+                maxlength="100"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Ciudad -->
+            <div class="form-group">
+              <label for="ciudad" class="form-label">Ciudad</label>
+              <input
+                type="text"
+                id="ciudad"
+                name="ciudad"
+                class="form-control"
+                placeholder="Ej: Ibagué"
+                maxlength="50"
+              />
+            </div>
+
+            <!-- Fecha de registro -->
+            <div class="form-group">
+              <label for="fechaRegistro" class="form-label">Fecha de registro <span class="required">*</span></label>
+              <input
+                type="date"
+                id="fechaRegistro"
+                name="fechaRegistro"
+                class="form-control"
+                required
+              />
+              <span class="form-error" id="error-fechaRegistro"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- SECCIÓN 2: DATOS DE VENTA -->
+        <fieldset class="form-section">
+          <legend class="form-section__legend">
+            <span class="legend-num">02</span> Venta Asociada
+          </legend>
+
+          <div class="form-row">
+            <!-- Producto o servicio -->
+            <div class="form-group">
+              <label for="producto" class="form-label">Producto / Servicio <span class="required">*</span></label>
+              <input
+                type="text"
+                id="producto"
+                name="producto"
+                class="form-control"
+                placeholder="Ej: Laptop Dell Inspiron 15"
+                maxlength="80"
+                required
+              />
+              <span class="form-error" id="error-producto"></span>
+            </div>
+
+            <!-- Categoría -->
+            <div class="form-group">
+              <label for="categoria" class="form-label">Categoría</label>
+              <select id="categoria" name="categoria" class="form-control">
+                <option value="">-- Seleccione --</option>
+                <option value="Tecnología">Tecnología</option>
+                <option value="Ropa">Ropa</option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Servicios">Servicios</option>
+                <option value="Hogar">Hogar</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Cantidad -->
+            <div class="form-group">
+              <label for="cantidad" class="form-label">Cantidad <span class="required">*</span></label>
+              <input
+                type="number"
+                id="cantidad"
+                name="cantidad"
+                class="form-control"
+                placeholder="1"
+                min="1"
+                max="9999"
+                required
+              />
+              <span class="form-error" id="error-cantidad"></span>
+            </div>
+
+            <!-- Precio unitario -->
+            <div class="form-group">
+              <label for="precioUnitario" class="form-label">Precio unitario (COP) <span class="required">*</span></label>
+              <input
+                type="number"
+                id="precioUnitario"
+                name="precioUnitario"
+                class="form-control"
+                placeholder="0"
+                min="0"
+                step="0.01"
+                required
+              />
+              <span class="form-error" id="error-precioUnitario"></span>
+            </div>
+          </div>
+
+          <!-- Total calculado automáticamente -->
+          <div class="form-row">
+            <div class="form-group form-group--full">
+              <label class="form-label">Total de la venta</label>
+              <div class="total-display">
+                <span class="total-display__label">Total calculado:</span>
+                <span class="total-display__value" id="totalVenta">$0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Observaciones -->
+          <div class="form-row">
+            <div class="form-group form-group--full">
+              <label for="observaciones" class="form-label">Observaciones</label>
+              <textarea
+                id="observaciones"
+                name="observaciones"
+                class="form-control form-textarea"
+                placeholder="Notas adicionales sobre la venta o el cliente..."
+                maxlength="300"
+                rows="3"
+              ></textarea>
+              <span class="char-count" id="charCount">0 / 300</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- BOTONES DE ACCIÓN -->
+        <div class="form-actions">
+          <button type="button" id="btnLimpiar" class="btn btn--outline">Limpiar formulario</button>
+          <button type="submit" id="btnGuardar" class="btn btn--primary">Guardar registro</button>
+        </div>
+
+      </form>
+      <!-- FIN FORMULARIO -->
+
+    </div>
+  </main>
+
+  <!-- MODAL DE CONFIRMACIÓN -->
+  <div id="modalConfirm" class="modal hidden">
+    <div class="modal__overlay"></div>
+    <div class="modal__box">
+      <div class="modal__icon">✓</div>
+      <h2 class="modal__title">¡Registro exitoso!</h2>
+      <p class="modal__desc" id="modalDesc">El cliente fue guardado correctamente.</p>
+      <div class="modal__actions">
+        <button id="modalNuevo" class="btn btn--outline">Nuevo registro</button>
+        <a href="consulta.html" class="btn btn--primary">Ver registros</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <p>Evidencia GA7-220501096-AA3-EV01</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/registro.js"></script>
+    <script src="apiUsuarios.js"></script>
+</body>
+</html>
